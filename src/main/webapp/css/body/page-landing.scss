@@ -1,0 +1,75 @@
+$general-color: rgb(17, 95, 14);
+
+@mixin smallTransition {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: background 0.1s;
+}
+
+:root {
+  font-size: 40%;
+}
+
+#content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .top-article {
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    margin: 0.2rem;
+    height: 50%;
+
+    article {
+      margin-right: 0.3rem;
+      border: 1px solid $general-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      p,
+      a {
+        display: inline;
+      }
+    }
+
+    .top-last-article {
+      margin: 0;
+    }
+  }
+
+  .bottom-article {
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    article {
+      border: 1px solid $general-color;
+      margin: 0.3rem;
+    }
+  }
+
+  .top-article article:hover,
+  .bottom-article article:hover {
+    @include smallTransition();
+  }
+}
+
+h1 {
+  padding-top: 2rem;
+  text-align: center;
+}
+
+p {
+  padding: 1rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+}

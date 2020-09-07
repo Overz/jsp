@@ -1,0 +1,20 @@
+$general-color: rgb(17, 95, 14);
+
+@mixin smallTransition {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: background 0.1s;
+}
+
+footer:not(.footer-form) {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $general-color;
+  margin: 0.3rem;
+  border: 1px solid green;
+}
+
+footer:hover {
+  @include smallTransition();
+}

@@ -1,0 +1,70 @@
+:root {
+  font-size: 40%;
+}
+
+#content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+#content .table {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin: 0.3rem;
+  border: 1px solid #115f0e;
+  border-collapse: collapse;
+}
+
+#content th,
+#content td {
+  border-bottom: 1px solid #ccc;
+  padding: 0.6rem;
+}
+
+#content th {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#content tr:nth-child(even):hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  -webkit-transform: translateX(5px);
+          transform: translateX(5px);
+  cursor: pointer;
+}
+
+#content tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+h1 {
+  padding: 1rem;
+  text-shadow: 2px 2px 5px black;
+  text-align: center;
+}
+
+@media (min-width: 700px) {
+  #content td,
+  #content th {
+    font-size: 4rem;
+  }
+}
+/*# sourceMappingURL=table.css.map */

@@ -1,0 +1,13 @@
+com/example/jsp/model/daoi/BaseDao.class
+com/example/jsp/model/daoi/DaoiFornecedor.class
+com/example/jsp/util/RandomData.class
+com/example/jsp/model/bo/BoFornecedor.class
+com/example/jsp/model/conn/GetPostgresConnection.class
+com/example/jsp/model/conn/Migration.class
+com/example/jsp/util/Cors.class
+com/example/jsp/model/vo/VoFornecedor.class
+com/example/jsp/model/conn/GetMySqlConnection.class
+com/example/jsp/model/dao/DaoInMemory.class
+com/example/jsp/model/dao/DaoFornecedor.class
+com/example/jsp/model/conn/InMemoryDb.class
+com/example/jsp/controller/ControlServlet.class

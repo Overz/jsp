@@ -1,9 +1,11 @@
 package com.example.jsp.util;
 
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.Base64;
 import java.util.Random;
-import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 
 /**
  * @author Christian Lima
@@ -12,16 +14,17 @@ import org.apache.commons.codec.binary.Base64;
  */
 public class RandomData {
 
-	public static final int MINIMUM = 15;
-	public static final int MEDIUM = 30;
-	public static final int MAXIMUM = 55;
+	private static final int MINIMUM = 15;
+	private static final int MEDIUM = 30;
+	private static final int MAXIMUM = 55;
+	private static final String REGEX = "\\D";
 
 	/**
 	 * Método Util para gerar characteres aleatórios.
 	 * Obs: Método gera automaticamente valores abaixo de 10 caso o parametro Int não seja informado.
 	 *
 	 * @param value String - Valor a ser substituido pelo autogerado.
-	 * @param i Integer - Length a ser substituido pelo padrão atual(10).
+	 * @param i     Integer - Length a ser substituido pelo padrão atual(10).
 	 * @return String com caracteres aleatórios.
 	 */
 	private static String generateChars(String value, Integer i) {
@@ -44,7 +47,7 @@ public class RandomData {
 	}
 
 	/**
-	 * Gera uma String com caracteres aleatórios e possíveis espaços, "simulando" um nome real.
+	 * Gera nome FAKE, simulando espaços entre os caracteres.
 	 *
 	 * @param i Integer - Length a ser substituido pelo padrão atual(10).
 	 * @return String com caracteres aleatórios.
@@ -63,7 +66,7 @@ public class RandomData {
 	}
 
 	/**
-	 * Gera um email padrão @email.com
+	 * Gera um FAKE email padrão @email.com
 	 *
 	 * @param i Integer - Length a ser substituido pelo padrão atual(10).
 	 * @return String com padrão AlgumaCoisa@email.com
@@ -78,13 +81,12 @@ public class RandomData {
 	 * @return String CPF sem formatação
 	 */
 	public static String generateCpf() {
-		StringBuilder iniciais = new StringBuilder();
-		int numero;
+		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < 11; i++) {
-			numero = (int) (Math.random() * 10);
-			iniciais.append(numero);
+			Integer n = (int) (Math.random() * 10);
+			builder.append(n);
 		}
-		return iniciais.toString();
+		return builder.toString();
 	}
 
 	/**
@@ -92,58 +94,37 @@ public class RandomData {
 	 *
 	 * @return String número de telefone
 	 */
-	public static String generatePhone() {
-		try {
-			String chars = "123456789";
-			StringBuilder builder = new StringBuilder();
-			Random random = new Random();
-			while (builder.length() <= 8) {
-				int i = (int) (random.nextFloat() * chars.length());
-				builder.append(chars.charAt(i));
-			}
-			return "(48)9".concat(builder.toString());
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return null;
+	public static String generatePhone(String number) {
+		return "(48)9".concat(generateChars(number.replaceAll(REGEX, ""), number.length()));
 	}
 
 	/**
-	 * Para utilizar o generatePassword, é necessário uma lib Codec da Apache
-	 * - https://mvnrepository.com/artifact/commons-codec/commons-codec
-	 * - http://commons.apache.org/proper/commons-codec/archives/1.9/userguide.html
+	 * Retorna uma senha criptografada em Base64
+	 * - https://stackabuse.com/encoding-and-decoding-base64-strings-in-java/
 	 *
 	 * @param password String - Senha a ser criptografada com a lib Codec
 	 * @param i:       Integer - Length a ser substituido pelo padrão atual(10).
 	 * @return String encoded por Base64
 	 */
-	public static String generatePassword(String password, Integer i) {
-		return Base64.encodeBase64String(generateChars(password, i).getBytes());
+	public static String toBase64(String password, Integer i) {
+		Base64.Encoder encoder = Base64.getEncoder();
+		return password != null && !password.isEmpty() ? encoder.encodeToString(password.getBytes()) : encoder.encodeToString(generateChars(password, i).getBytes());
 	}
 
 	/**
 	 * Cria uma pass criptografada com SHA-512
-	 * <p>
-	 * https://www.devmedia.com.br/como-funciona-a-criptografia-hash-em-java/31139
 	 *
 	 * @param pass String - String informada a para criptografia
 	 * @return String Sha-512
 	 */
-	public static String generateShaPass(String pass) {
+	public static String toSha(String pass) {
 		try {
-			MessageDigest algorithm = MessageDigest.getInstance("SHA-512");
-			byte[] messageDigest = algorithm.digest(pass.getBytes(StandardCharsets.UTF_8));
-			StringBuilder hexString = new StringBuilder();
-
-			for (byte b : messageDigest) {
-				// Quanto maior o número informado no "format", maior a criptografia
-				// Padrão é 02
-				hexString.append(String.format("%02X", 0xFF & b));
-			}
-			return hexString.toString();
+			MessageDigest md = MessageDigest.getInstance("SHA-512");
+			byte[] bytes = md.digest(pass.getBytes(StandardCharsets.UTF_8));
+			return new BigInteger(1, bytes).toString(16);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			System.out.println("Erro ao tentar criar a pass Hash");
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -154,19 +135,8 @@ public class RandomData {
 	 * @param pass String - A strig informada
 	 * @return String - Hexadecimal String
 	 */
-	public static String stringHexa(String pass) {
-		StringBuilder builder = new StringBuilder();
-		byte[] bytes = pass.getBytes();
-
-		for (byte aByte : bytes) {
-			int parteAlta = ((aByte >> 4) & 0xf) << 4;
-			int parteBaixa = aByte & 0xf;
-			if (parteAlta == 0) {
-				builder.append('0');
-			}
-			builder.append(Integer.toHexString(parteAlta | parteBaixa));
-		}
-		return builder.toString();
+	public static String toHex(String pass) {
+		return Hex.encodeHexString(pass.getBytes());
 	}
 
 	/**
@@ -175,20 +145,7 @@ public class RandomData {
 	 * @param pass String - A string informada
 	 * @return String criptografada
 	 */
-	public static String criptoPassword(String pass) {
-		return generateShaPass(stringHexa(pass));
+	public static String cryptoPassword(String pass) {
+		return toSha(toHex(pass));
 	}
 }
-
-//class Decripto {
-//	public Decripto() {
-//	};
-//
-//	public static String decript64(String password) {
-//		return new String(Base64.decodeBase64(password.getBytes()));
-//	}
-//
-//	public static String decriptShaPass(String pass){
-//		return null;
-//	}
-//}

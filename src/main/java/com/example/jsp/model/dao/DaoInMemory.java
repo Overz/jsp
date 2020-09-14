@@ -37,7 +37,7 @@ public class DaoInMemory implements BaseDao<VoFornecedor> {
 			this.f = newObject;
 
 			conn = InMemoryDb.openConnection();
-			ps = InMemoryDb.getPreparedStatement(conn, qry, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps = conn.prepareStatement(qry, PreparedStatement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, newObject.getNome());
 			ps.setString(2, newObject.getEmail());

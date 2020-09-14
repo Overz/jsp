@@ -32,7 +32,7 @@
         </nav>
         <div id="images">
           <div class="img-left-side">
-            <img src="../img/left-side.png" alt="left side" />
+            <img src=${request.contextPath}"/img/left-side.png" alt="left side" />
           </div>
           <div class="img-right-side">
             <img src="../img/right-side.png" alt="#" />
@@ -40,7 +40,7 @@
         </div>
       </header>
       <main>
-        <form id="create-class" method="post" action="/requestMap">
+        <form id="create-class" method="post" action="${pageContext.request.contextPath}/requestMap">
           <fieldset>
             <legend class="first-legend legend-media">Seus dados</legend>
 

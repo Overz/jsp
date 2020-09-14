@@ -26,8 +26,11 @@ public class ControlServlet extends HttpServlet {
 	}
 
 	protected void requestMapper(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
 		String a = req.getParameter("name");
 		String b = req.getParameter("whatsapp");
+
+		res.sendRedirect("/jsp/form.jsp");
 
 		System.out.println(a);
 		System.out.println(b);

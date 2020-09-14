@@ -33,13 +33,15 @@ public class TestDaoFornecedor extends Assert {
 	}
 
 	@Test()
-	@Ignore("Método não implementado")
+//	@Ignore("Método não implementado")
 	public void testAlterar() {
 		System.out.println("Alterar");
 		daoF = new DaoFornecedor();
-		f = new VoFornecedor();
-		f.setEmail("Fornecedor@email.com");
+		f = new VoFornecedor(null, "joaozinho", "a@a.com", "sei la", new Date());
+		VoFornecedor novo = daoF.cadastrar(f);;
+		assertNotSame(novo, f);
 
-		assertTrue(daoF.alterar(f));
+		novo.setEmail("Fornecedor@email.com");
+		assertTrue(daoF.alterar(novo));
 	}
 }

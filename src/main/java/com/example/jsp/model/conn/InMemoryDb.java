@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
-import org.sqlite.SQLiteErrorCode;
-import org.sqlite.SQLiteException;
 
 //	https://www.sqlitetutorial.net/sqlite-java/sqlite-jdbc-driver/
 //	https://www.tutorialspoint.com/sqlite/sqlite_java.htm

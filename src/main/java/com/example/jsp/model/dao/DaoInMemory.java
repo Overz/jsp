@@ -47,7 +47,7 @@ public class DaoInMemory implements BaseDao<VoFornecedor> {
 			ps.execute();
 			rs = ps.getGeneratedKeys();
 
-			if (rs.next()){
+			if (rs.next()) {
 				Long id = rs.getLong(1);
 				newObject.setId(id);
 			}

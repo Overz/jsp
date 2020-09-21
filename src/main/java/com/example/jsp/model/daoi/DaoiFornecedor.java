@@ -3,7 +3,7 @@ package com.example.jsp.model.daoi;
 import com.example.jsp.model.vo.VoFornecedor;
 import java.util.List;
 
-public interface DaoiFornecedor extends BaseDao<VoFornecedor>{
+public interface DaoiFornecedor extends BaseDao<VoFornecedor> {
 
 	@Override
 	List<VoFornecedor> consultarTodos();

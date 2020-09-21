@@ -1,6 +1,7 @@
 package util;
 
 import com.example.jsp.util.Decrypt;
+import com.example.jsp.util.Encrypt;
 import com.example.jsp.util.RandomData;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,42 +31,42 @@ public class TestUtil extends Assert {
 
 	@Test()
 	public void testSenha64() {
-		String res = RandomData.toBase64("batatinha@123", null);
+		String res = Encrypt.toBase64("batatinha@123", null);
 		System.out.println("Senha Base64: " + res);
 		assertNotSame("batatinha@123", res);
 	}
 
 	@Test()
 	public void testSha() {
-		String res = RandomData.toSha("batatinha@123");
+		String res = Encrypt.toSha("batatinha@123");
 		System.out.println("SHA: " + res);
 		assertNotSame("batatinha@123", res);
 	}
 
 	@Test()
 	public void testHex() {
-		String res = RandomData.toHex("batatinha@123");
+		String res = Encrypt.toHex("batatinha@123");
 		System.out.println("Hexa: " + res);
 		assertNotSame("batatinha@123", res);
 	}
 
 	@Test()
 	public void testCriptoString() {
-		String res = RandomData.cryptoPassword("batatinha@123");
+		String res = Encrypt.cryptoPassword("batatinha@123");
 		System.out.println("Criptografia: " + res);
 		assertNotSame("batatinha@123", res);
 	}
 
 	@Test()
 	public void testDecripto64() {
-		String res = Decrypt.fromBase64(RandomData.toBase64("batatinha@123", null));
+		String res = Decrypt.fromBase64(Encrypt.toBase64("batatinha@123", null));
 		System.out.println("Base 64 Decripted: " + res);
 		assertEquals("batatinha@123", res);
 	}
 
 	@Test()
-	public void testDecryptHex(){
-		String res = Decrypt.fromHex(RandomData.toHex("batatinha"));
+	public void testDecryptHex() {
+		String res = Decrypt.fromHex(Encrypt.toHex("batatinha"));
 		System.out.println("Hex decrypted: " + res);
 		assertNotSame(res, "batatinha");
 	}

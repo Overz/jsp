@@ -11,6 +11,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore()
 public class TestInMemory extends Assert {
 
 	@Test()
@@ -39,8 +40,6 @@ public class TestInMemory extends Assert {
 		        ");");
 		inserts.add("insert into fornecedor (nome, email, dtcadastro) " +
 		            "values ('teste', 'a@a.com', '" + new Date().toString() + "');");
-//		sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-//		      "VALUES (1, 'Paul', 32, 'California', 20000.00 );";
 		InMemoryDb.createTable(con, qry);
 		InMemoryDb.insertTable(con, inserts);
 		ResultSet rs = InMemoryDb.selectTable(con, "select * from fornecedor");
@@ -58,7 +57,7 @@ public class TestInMemory extends Assert {
 	}
 
 	@Test()
-//	@Ignore()
+	@Ignore()
 	public void b() {
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -105,6 +104,7 @@ public class TestInMemory extends Assert {
 	}
 
 	@Test()
+	@Ignore()
 	public void c() throws SQLException {
 		String sql = "CREATE TABLE COMPANY " +
 		             "(ID INT PRIMARY KEY     NOT NULL," +

@@ -1,25 +1,24 @@
 package com.example.jsp.model.daoi;
 
 import com.example.jsp.model.vo.VoFornecedor;
-import java.util.List;
 
 public interface DaoiFornecedor extends BaseDao<VoFornecedor> {
 
 	@Override
-	List<VoFornecedor> consultarTodos();
+	<T> T consultarTodos() throws Exception;
 
 	@Override
-	<T> T consultar(String... values);
+	<T> T consultar(String... values) throws Exception;
 
 	@Override
-	VoFornecedor consultarPorId(Long id);
+	VoFornecedor consultarPorId(Long id) throws Exception;
 
 	@Override
-	VoFornecedor cadastrar(VoFornecedor newObject, String... values);
+	VoFornecedor cadastrar(VoFornecedor newObject, String... values) throws Exception;
 
 	@Override
-	boolean alterar(VoFornecedor object);
+	boolean alterar(VoFornecedor object) throws Exception;
 
 	@Override
-	boolean excluirPorID(Long id);
+	boolean excluirPorID(Long id) throws Exception;
 }

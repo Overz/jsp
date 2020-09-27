@@ -1,6 +1,6 @@
 package com.example.jsp.model.dao;
 
-import com.example.jsp.model.conn.GetMySqlConnection;
+import com.example.jsp.model.conn.GetConnection;
 import com.example.jsp.model.daoi.DaoiFornecedor;
 import com.example.jsp.model.vo.VoFornecedor;
 import java.sql.*;
@@ -18,29 +18,26 @@ public class DaoFornecedor implements DaoiFornecedor {
 	private VoFornecedor criarResultset(ResultSet rs) {
 		try {
 			f = new VoFornecedor();
-			f.setId(rs.getLong("id"));
+			f.setId(rs.getInt("id"));
 			f.setNome(rs.getString("nome"));
 			f.setEmail(rs.getString("email"));
+			f.setTelefone(rs.getString("telefone"));
 			f.setDescricao(rs.getString("descricao"));
 			f.setDtCadastro(rs.getDate("dtcadastro"));
-
 			return f;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-		} finally {
-			GetMySqlConnection.closeResultSet(rs);
 		}
 		return null;
 	}
 
-
 	@Override
-	public List<VoFornecedor> consultarTodos() {
+	public <T> T consultarTodos() throws Exception {
 		try {
 			String qry = "select * from fornecedor";
 			list = new ArrayList<>();
-			conn = GetMySqlConnection.openConnection();
-			ps = GetMySqlConnection.getPreparedStatement(conn, qry, PreparedStatement.RETURN_GENERATED_KEYS);
+			conn = GetConnection.abrirConexao();
+			ps = GetConnection.getPreparedStatement(conn, qry, PreparedStatement.RETURN_GENERATED_KEYS);
 
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -48,52 +45,75 @@ public class DaoFornecedor implements DaoiFornecedor {
 				list.add(f);
 			}
 
-			return list;
-		} catch (SQLException e) {
+			return (T) list;
+		} catch (Exception e) {
+			System.out.println(e.getClass().getSimpleName());
 			System.out.println(e.getMessage());
+		} finally {
+			GetConnection.fecharConexao(conn, ps, rs);
 		}
 		return null;
 	}
 
 	@Override
-	public <T> T consultar(String... values) {
+	public <T> T consultar(String... values) throws Exception {
+		qry = "select * from fornecedor where nome like ?";
+		list = new ArrayList<>();
+		try {
+			conn = GetConnection.abrirConexao();
+			ps = conn.prepareStatement(qry, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setString(1, "%" + values[ 0 ] + "%");
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				f = criarResultset(rs);
+				list.add(f);
+			}
+			return (T) list;
+		} catch (Exception e) {
+			System.out.println(e.getClass().getSimpleName());
+			System.out.println(e.getMessage());
+		} finally {
+			GetConnection.fecharConexao(conn, ps, rs);
+		}
 		return null;
 	}
 
 	@Override
-	public VoFornecedor consultarPorId(Long id) {
+	public VoFornecedor consultarPorId(Long id) throws Exception {
+		qry = "select * from fornecedor where id=?";
 		try {
-			String qry = "select * from fornecedor where id=?";
-
-			conn = GetMySqlConnection.openConnection();
-			ps = GetMySqlConnection.getPreparedStatement(conn, qry, PreparedStatement.RETURN_GENERATED_KEYS);
+			conn = GetConnection.abrirConexao();
+			ps = GetConnection.getPreparedStatement(conn, qry, PreparedStatement.RETURN_GENERATED_KEYS);
 
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 
-			while (rs.next()) {
-				f = criarResultset(rs);
+			if (rs.next()) {
+				return criarResultset(rs);
 			}
 		} catch (SQLException e) {
+			System.out.println(e.getClass().getSimpleName());
 			System.out.println(e.getMessage());
 		} finally {
-			GetMySqlConnection.closeConnection(conn, ps, rs);
+			GetConnection.fecharConexao(conn, ps, rs);
 		}
 		return null;
 	}
 
 	@Override
-	public VoFornecedor cadastrar(VoFornecedor newObject, String... values) {
+	public VoFornecedor cadastrar(VoFornecedor newObject, String... values) throws Exception {
 		try {
-			qry = "insert into fornecedor (nome, email, descricao, dtCadastro) values (?,?,?,?)";
+			qry = "insert into fornecedor (nome, email, telefone, descricao, dtCadastro) values (?,?,?,?,?)";
 
-			conn = GetMySqlConnection.openConnection();
-			ps = GetMySqlConnection.getPreparedStatement(conn, qry, PreparedStatement.RETURN_GENERATED_KEYS);
+			conn = GetConnection.abrirConexao();
+			ps = GetConnection.getPreparedStatement(conn, qry, PreparedStatement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, newObject.getNome());
 			ps.setString(2, newObject.getEmail());
-			ps.setString(3, newObject.getDescricao());
-			ps.setDate(4, new Date(newObject.getDtCadastro().getTime()));
+			ps.setString(3, newObject.getTelefone());
+			ps.setString(4, newObject.getDescricao());
+			ps.setDate(5, new Date(newObject.getDtCadastro().getTime()));
 
 			ps.execute();
 			rs = ps.getGeneratedKeys();
@@ -107,61 +127,54 @@ public class DaoFornecedor implements DaoiFornecedor {
 			System.out.println(e.getClass().getSimpleName());
 			System.out.println(e);
 		} finally {
-			GetMySqlConnection.closeConnection(conn, ps, rs);
+			GetConnection.fecharConexao(conn, ps, rs);
 		}
 		return null;
 	}
 
 	@Override
-	public boolean alterar(VoFornecedor object) {
+	public boolean alterar(VoFornecedor object) throws Exception {
 		try {
-			qry = "update fornecedor set nome=?, email=?, descricao=?, dtCadastro=? where id=?";
+			qry = "update fornecedor set nome=?, email=?, telefone=?, descricao=?, dtCadastro=? where id=?";
 
-			conn = GetMySqlConnection.openConnection();
-			ps = GetMySqlConnection.getPreparedStatement(conn, qry, PreparedStatement.RETURN_GENERATED_KEYS);
+			conn = GetConnection.abrirConexao();
+			ps = GetConnection.getPreparedStatement(conn, qry, PreparedStatement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, object.getNome());
 			ps.setString(2, object.getEmail());
-			ps.setString(3, object.getDescricao());
-			ps.setDate(4, new Date(object.getDtCadastro().getTime()));
-			ps.setLong(5, object.getId());
+			ps.setString(3, object.getTelefone());
+			ps.setString(4, object.getDescricao());
+			ps.setDate(5, new Date(object.getDtCadastro().getTime()));
+			ps.setLong(6, object.getId());
 
-			boolean res = ps.execute();
-			rs = ps.getGeneratedKeys();
-
-			if (rs.next()) {
-				Long id = rs.getLong(1);
-				object.setId(id);
-			}
-			return res;
+			return ps.executeUpdate() == GetConnection.CODIGO_RETORNO_SUCESSO;
 		} catch (SQLException e) {
 			System.out.println(e.getClass().getSimpleName());
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		} finally {
-			GetMySqlConnection.closeConnection(conn, ps, rs);
+			GetConnection.fecharConexao(conn, ps, rs);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean excluirPorID(Long id) {
+	public boolean excluirPorID(Long id) throws Exception {
 		String qry = "delete from fornecedor where id=?";
 
-		conn = GetMySqlConnection.openConnection();
-		ps = GetMySqlConnection.getPreparedStatement(conn, qry, PreparedStatement.RETURN_GENERATED_KEYS);
+		conn = GetConnection.abrirConexao();
+		ps = GetConnection.getPreparedStatement(conn, qry, PreparedStatement.RETURN_GENERATED_KEYS);
 
 		try {
 			ps.setLong(1, id);
 
-			if (ps.executeUpdate() == GetMySqlConnection.CODIGO_RETORNO_SUCESSO) {
+			if (ps.executeUpdate() == GetConnection.CODIGO_RETORNO_SUCESSO) {
 				return true;
 			}
 		} catch (SQLException e) {
-			String method = "excluir(int id)";
-			System.out.println("\n" + "Class: " + getClass().getSimpleName() + "\n" + "Method: " + method + "\n"
-			                   + "Msg: " + e.getMessage() + "\n" + "Cause: " + e.getCause());
+			System.out.println(e.getClass().getSimpleName());
+			System.out.println(e.getMessage());
 		} finally {
-			GetMySqlConnection.closeConnection(conn, ps, rs);
+			GetConnection.fecharConexao(conn, ps, rs);
 		}
 		return false;
 	}

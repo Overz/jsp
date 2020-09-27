@@ -11,7 +11,7 @@ import org.apache.commons.codec.binary.Hex;
 
 import static com.example.jsp.util.RandomData.generateChars;
 
-public class Encrypt {
+public class Crypto {
 
 	/**
 	 * Retorna uma senha criptografada em Base64
@@ -94,5 +94,22 @@ public class Encrypt {
 			System.out.println(e.getMessage());
 		}
 		return null;
+	}
+
+	public static String fromBase64(String pass) {
+		return new String(Base64.getDecoder().decode(pass));
+	}
+
+	public static String fromHex(String pass) {
+		try {
+			return new String(Hex.decodeHex(pass), StandardCharsets.UTF_8);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
+
+	public static boolean compareHash(String passHashed, String hashedPass) {
+		return passHashed.equalsIgnoreCase(hashedPass);
 	}
 }

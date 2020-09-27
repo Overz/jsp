@@ -9,14 +9,14 @@ public interface BaseDao<T> {
 	 *
 	 * @return ArrayList<?>
 	 */
-	List<T> consultarTodos();
+	<T> T consultarTodos() throws Exception;
 
 	/**
 	 * @param values Array String
 	 * @param <T>    Valor Indefinido
 	 * @return Retorno Indefinido
 	 */
-	<T> T consultar(String... values);
+	<T> T consultar(String... values) throws Exception;
 
 	/**
 	 * Consulta algo especifico através de um id;
@@ -24,7 +24,7 @@ public interface BaseDao<T> {
 	 * @param id: Long
 	 * @return object
 	 */
-	T consultarPorId(Long id);
+	T consultarPorId(Long id) throws Exception;
 
 	/**
 	 * Método para cadastrar;
@@ -32,7 +32,7 @@ public interface BaseDao<T> {
 	 * @param newObject: Object
 	 * @return newObject
 	 */
-	T cadastrar(T newObject, String... values);
+	T cadastrar(T newObject, String... values) throws Exception;
 
 	/**
 	 * Método para altera/atualizar;
@@ -40,7 +40,7 @@ public interface BaseDao<T> {
 	 * @param object: Object
 	 * @return boolean
 	 */
-	boolean alterar(T object);
+	boolean alterar(T object) throws Exception;
 
 	/**
 	 * Método para excluir;
@@ -48,5 +48,5 @@ public interface BaseDao<T> {
 	 * @param id: Long
 	 * @return boolean
 	 */
-	boolean excluirPorID(Long id);
+	boolean excluirPorID(Long id) throws Exception;
 }

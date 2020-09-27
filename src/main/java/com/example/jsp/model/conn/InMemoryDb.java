@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class InMemoryDb {
 
 	private static final String DRIVER = "org.sqlite.JDBC";
-	private static final String BANCO = "jdbc:sqlite::memory";
+	private static final String BANCO = "jdbc:sqlite::memory:";
 
 	public static Connection openConnection() {
 		try {

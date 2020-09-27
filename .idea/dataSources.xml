@@ -13,5 +13,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite::memory:</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="teste" uuid="d4279d85-c578-4093-826a-7c9418fff54b">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/teste</jdbc-url>
+    </data-source>
   </component>
 </project>

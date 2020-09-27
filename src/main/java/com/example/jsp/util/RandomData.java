@@ -90,8 +90,8 @@ public class RandomData {
 	 *
 	 * @return String número de telefone
 	 */
-	public static String generatePhone(String number) {
-		return "(48)9".concat(generateChars(number.replaceAll(REGEX, ""), number.length()));
+	public static String generatePhone(int number) {
+		return "(48)9".concat(generateChars("123456789", number));
 	}
 
 }

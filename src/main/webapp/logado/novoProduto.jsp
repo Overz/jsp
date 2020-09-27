@@ -60,47 +60,47 @@ this template use File | Settings | File Templates. --%>
         <form
           id="form_email"
           method="post"
-          action="${pageContext.request.contextPath}/crud_produto?cmd=salvar"
+          action="${pageContext.request.contextPath}/crud_teste?cmd=salvar"
         >
-          <input type="hidden" name="id" value="${produto.id}" />
-          <div class="div_flex">
-            <label for="nome">Nome:</label>
-            <input
-              id="nome"
-              type="text"
-              name="nome"
-              required
-              value="${produto.nome}"
-            />
-          </div>
-          <div class="div_flex">
-            <label for="preco">Preco:</label>
-            <input
-              id="preco"
-              type="number"
-              name="preco"
-              required
-              value="${produto.preco}"
-            />
-          </div>
-          <div class="div_flex">
-            <label for="estoque">Estoque:</label>
-            <input
-              id="estoque"
-              type="number"
-              name="estoque"
-              required
-              value="${produto.estoque}"
-            />
-          </div>
-          <div class="div_flex">
-            <label for="email_textarea">Descrição:</label>
-            <textarea
-              id="email_textarea"
-              name="descricao"
-              style="resize: vertical"
-            >${produto.descricao}</textarea>
-          </div>
+<%--          <input type="hidden" name="id" value="${produto.id}" />--%>
+<%--          <div class="div_flex">--%>
+<%--            <label for="nome">Nome:</label>--%>
+<%--            <input--%>
+<%--              id="nome"--%>
+<%--              type="text"--%>
+<%--              name="nome"--%>
+<%--              required--%>
+<%--              value="${produto.nome}"--%>
+<%--            />--%>
+<%--          </div>--%>
+<%--          <div class="div_flex">--%>
+<%--            <label for="preco">Preco:</label>--%>
+<%--            <input--%>
+<%--              id="preco"--%>
+<%--              type="number"--%>
+<%--              name="preco"--%>
+<%--              required--%>
+<%--              value="${produto.preco}"--%>
+<%--            />--%>
+<%--          </div>--%>
+<%--          <div class="div_flex">--%>
+<%--            <label for="estoque">Estoque:</label>--%>
+<%--            <input--%>
+<%--              id="estoque"--%>
+<%--              type="number"--%>
+<%--              name="estoque"--%>
+<%--              required--%>
+<%--              value="${produto.estoque}"--%>
+<%--            />--%>
+<%--          </div>--%>
+<%--          <div class="div_flex">--%>
+<%--            <label for="email_textarea">Descrição:</label>--%>
+<%--            <textarea--%>
+<%--              id="email_textarea"--%>
+<%--              name="descricao"--%>
+<%--              style="resize: vertical"--%>
+<%--            >${produto.descricao}</textarea>--%>
+<%--          </div>--%>
           <div class="div_flex">
             <input class="botao botao_esquerda" value="Enviar" type="submit" />
             <input class="botao" type="reset" value="Limpar" />

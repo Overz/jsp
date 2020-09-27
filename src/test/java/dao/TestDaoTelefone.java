@@ -61,6 +61,7 @@ public class TestDaoTelefone extends Assert implements BaseTEST {
 		Connection conn = null;
 		try {
 			conn = GetConnection.abrirConexao();
+			assert conn != null;
 			conn.prepareStatement("truncate telefone").execute();
 		} catch (Exception e) {
 			System.out.println(e.getClass().getSimpleName());

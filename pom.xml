@@ -17,14 +17,10 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <flyway.url>jdbc:mysql://localhost:3306/teste?useTimezone=true&amp;serverTimezone=America/Sao_Paulo&amp;zeroDateTimeBehavior=convertToNull</flyway.url>
+        <flyway.url>jdbc:mysql://localhost:3306/jsp?useTimezone=true&amp;serverTimezone=America/Sao_Paulo&amp;zeroDateTimeBehavior=convertToNull</flyway.url>
         <flyway.user>cris</flyway.user>
         <flyway.password>30752287</flyway.password>
-        <!-- List are defined as comma-separated values -->
-        <flyway.schemas>teste</flyway.schemas>
-        <!-- Individual placeholders are prefixed by flyway.placeholders. -->
-        <flyway.placeholders.keyABC>valueXYZ</flyway.placeholders.keyABC>
-        <flyway.placeholders.otherplaceholder>value123</flyway.placeholders.otherplaceholder>
+        <flyway.schemas>jsp</flyway.schemas>
     </properties>
 
     <dependencies>
@@ -138,10 +134,12 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.5.5</version>
                 <configuration>
-                    <url>jdbc:mysql:file:./src/main/resources/db/migration/V1__fornecedor.sql</url>
+                    <url>jdbc:mysql:file:./src/main/resources/db/migration/*.sql;shutdown=true</url>
                     <user>cris</user>
                     <password>30752287</password>
                     <baselineOnMigrate>true</baselineOnMigrate>
+                    <createSchemas>true</createSchemas>
+                    <validateOnMigrate>true</validateOnMigrate>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -156,6 +154,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
             </plugin>
 
             <plugin>

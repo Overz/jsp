@@ -11,23 +11,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ProdutoControle", urlPatterns = { "/crud_produto" })
-public class ProdutoControl extends RequestControl {
+@WebServlet(name = "TesteControl", urlPatterns = { "/crud_produto" })
+public class Teste extends RequestControl {
 
 	private HttpServletRequest req;
 	private HttpServletResponse res;
 	private RequestDispatcher rd;
 
-	protected ProdutoControl(){
-	};
-
 	@Override
 	protected void processRequest() throws ServletException, IOException {
 		switch (req.getParameter("cmd")) {
-			case "pesquisarPorNome" -> this.consultar();
-			case "salvar" -> this.salvar();
-			case "excluir" -> this.excluir();
-			case "carregar" -> this.carregarAlterar();
+			case "pesquisarPorNome" -> consultar();
+			case "salvar" -> salvar();
+			case "excluir" -> excluir();
+			case "carregar" -> carregarAlterar();
 		}
 		rd.forward(req, res);
 	}
@@ -38,7 +35,6 @@ public class ProdutoControl extends RequestControl {
 		try {
 			VoProduto p = new DaoProduto().consultarPorId(id);
 			req.setAttribute("produto", p);
-
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println(e.getClass().getSimpleName());
@@ -49,21 +45,22 @@ public class ProdutoControl extends RequestControl {
 
 	@Override
 	protected void salvar() {
-		VoProduto produto = new VoProduto();
+		VoProduto p = new VoProduto();
 		String id = req.getParameter("id");
-		produto.setNome(req.getParameter("nome"));
-		produto.setPreco(req.getParameter("preco"));
-		produto.setEstoque(req.getParameter("estoque"));
-		produto.setCodigo(id + 1 + LocalDateTime.now().getYear());
-
+		p.setNome(req.getParameter("nome"));
+		p.setPreco(req.getParameter("preco"));
+		p.setEstoque(req.getParameter("estoque"));
+		p.setDescricao(req.getParameter("descricao"));
 		try {
 			DaoProduto dao = new DaoProduto();
-			if (id != null) {
-				produto.setId(id);
-				dao.alterar(produto);
+			if (id != null && !id.isEmpty()) {
+				p.setId(id);
+				dao.alterar(p);
 				req.setAttribute("msgSucesso", "Alterado com Sucesso!");
 			} else {
-				dao.cadastrar(produto);
+				List<VoProduto> list = dao.consultarTodos();
+				p.setCodigo(this.addCodigo(list));
+				dao.cadastrar(p);
 				req.setAttribute("msgSucesso", "Salvo com Sucesso!");
 			}
 		} catch (Exception e) {
@@ -74,11 +71,11 @@ public class ProdutoControl extends RequestControl {
 	}
 
 	@Override
-	protected void excluir() {
-		Long id = Long.parseLong(req.getParameter("id"));
+	public void excluir() {
+		Long id = Long.parseLong(req.getParameter("idTela"));
 		try {
 			new DaoProduto().excluirPorID(id);
-			req.setAttribute("msgSucesso", "Excluido com Sucesso!");
+			req.setAttribute("msgSucesso", "Excluído com sucesso!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println(e.getClass().getSimpleName());
@@ -93,7 +90,7 @@ public class ProdutoControl extends RequestControl {
 		try {
 			List<VoProduto> list = new DaoProduto().consultar(nome);
 			if (list == null || list.isEmpty()) {
-				req.setAttribute("msgAlerta", "Não foi encontrado nenhum Produto!");
+				req.setAttribute("msgAlerta", "Não foi encontrado nenhum registro com esse valor!");
 				req.setAttribute("produto", null);
 			}
 			req.setAttribute("produto", list);
@@ -106,17 +103,25 @@ public class ProdutoControl extends RequestControl {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		this.req = req;
-		this.res = res;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		this.req = request;
+		this.res = response;
 		this.processRequest();
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		this.req = req;
-		this.res = res;
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		this.req = request;
+		this.res = response;
 		this.processRequest();
+	}
+
+	private String addCodigo(List<VoProduto> list) {
+		String year = String.valueOf(LocalDateTime.now().getYear());
+		Long id = list.get(list.size() - 1).getId() + 1;
+		return id + year;
 	}
 
 }

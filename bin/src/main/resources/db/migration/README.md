@@ -13,11 +13,11 @@ https://flywaydb.org/documentation/migrations
 
 Os números são as versões, e o pre-fixo, o tipo.
 
-##### - **`V1`** - Arquivos Vercionados
-##### - **`U1`** - Remoção
-##### - **`R1`** - Repetições
+#### - **V1** - Arquivos Vercionados
+#### - **U1** - Remoção
+#### - **R1** - Repetições
 
-### Versões alternativas:
+#### Versões alternativas:
 
 Existem alguns tipos de se referenciar as versões, que são explicadas no link do flyway citado acima.
 
@@ -26,9 +26,3 @@ As utilizadas neste projetos são:
 #### - **U1_1__**
 #### - **R1_1__**
 
-### Comandos:
-
-##### - `mvn flyway:clean` - Derruba todos os dados do DB
-##### - `mvn flyway:info` - Verifica as migrations disponiveis
-##### - `mvn flyway:validate` - Verifica se os dados das migrations estam OK
-##### - `mvn flyway:migrate` - Insere todos os dados no DB

@@ -1,7 +1,6 @@
-<%-- Created by IntelliJ IDEA. User: cris Date: 26/09/2020 Time: 17:02 To change
-this template use File | Settings | File Templates. --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%-- Document : contato Created on : 24/08/2020, 10:45:16 Author : Admin --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -39,15 +38,15 @@ this template use File | Settings | File Templates. --%>
       <div id="menu_lateral" class="div_borda espaco_topo">
         <ul>
           <li>
-            <a href="../logado/produto.jsp">Pesquisa</a>
+            <a href="../logado/fornecedor.jsp">Pesquisa</a>
           </li>
           <li>
-            <a href="../logado/novoProduto.jsp">Novo</a>
+            <a href="../logado/novoFornecedor.jsp">Novo</a>
           </li>
         </ul>
       </div>
       <div id="sistema" class="espaco_topo div_borda">
-        <h1>Produto</h1>
+        <h1>Fornecedor</h1>
 
         <c:if test="${msgSucesso != null}">
           <p class="mensagemSucesso">${msgSucesso}</p>
@@ -60,9 +59,9 @@ this template use File | Settings | File Templates. --%>
         <form
           id="form_email"
           method="post"
-          action="${pageContext.request.contextPath}/crud_produto?cmd=salvar"
+          action="${pageContext.request.contextPath}/crud_fornecedor?cmd=salvar"
         >
-          <input type="hidden" name="id" value="${produto.id}" />
+          <input type="hidden" name="id" value="${fornecedor.id}" />
           <div class="div_flex">
             <label for="nome">Nome:</label>
             <input
@@ -70,36 +69,32 @@ this template use File | Settings | File Templates. --%>
               type="text"
               name="nome"
               required
-              value="${produto.nome}"
+              value="${fornecedor.nome}"
             />
           </div>
           <div class="div_flex">
-            <label for="preco">Preco:</label>
+            <label for="email">E-mail:</label>
             <input
-              id="preco"
-              type="number"
-              name="preco"
+              id="email"
+              type="text"
+              name="email"
               required
-              value="${produto.preco}"
+              value="${fornecedor.email}"
             />
           </div>
           <div class="div_flex">
-            <label for="estoque">Estoque:</label>
+            <label for="telefone">telefone:</label>
             <input
-              id="estoque"
-              type="number"
-              name="estoque"
+              id="telefone"
+              type="text"
+              name="telefone"
               required
-              value="${produto.estoque}"
+              value="${fornecedor.telefone}"
             />
           </div>
           <div class="div_flex">
             <label for="email_textarea">Descrição:</label>
-            <textarea
-              id="email_textarea"
-              name="descricao"
-              style="resize: vertical"
-            >${produto.descricao}</textarea>
+            <textarea id="email_textarea" name="descricao" placeholder="" >${fornecedor.descricao}</textarea>
           </div>
           <div class="div_flex">
             <input class="botao botao_esquerda" value="Enviar" type="submit" />

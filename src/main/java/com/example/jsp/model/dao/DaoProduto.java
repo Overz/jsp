@@ -40,6 +40,7 @@ public class DaoProduto implements DaoiProduto {
 	public <T> T consultarTodos() throws Exception {
 		qry = "select * from produto";
 		try {
+			list = new ArrayList<>();
 			conn = GetConnection.abrirConexao();
 			ps = GetConnection.getPreparedStatement(conn, qry, Statement.RETURN_GENERATED_KEYS);
 			rs = ps.executeQuery();

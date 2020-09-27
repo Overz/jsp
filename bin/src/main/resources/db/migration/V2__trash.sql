@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS trash
+(
+    id INT NOT NULL AUTO_INCREMENT,
+
+    CONSTRAINT pk_trash PRIMARY KEY (id)
+
+) ENGINE = InnoDB;

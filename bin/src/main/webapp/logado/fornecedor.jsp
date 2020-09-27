@@ -82,6 +82,9 @@
           </div>
 
           <!--inicio tabela-->
+          <script>
+            console.log(response.body)
+          </script>
           <c:if test="${fornecedor != null}">
             <table class="table_pesquisa">
               <thead>

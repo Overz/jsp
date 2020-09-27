@@ -6,7 +6,6 @@ import com.example.jsp.model.vo.VoFornecedor;
 import com.example.jsp.util.RandomData;
 import java.sql.Connection;
 import java.util.Date;
-import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

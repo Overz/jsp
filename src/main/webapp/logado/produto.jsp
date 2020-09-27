@@ -98,22 +98,22 @@ this template use File | Settings | File Templates. --%>
                 <c:forEach items="${produto}" var="produto">
                   <tr>
                     <td>${produto.nome}</td>
-                    <td>${produto.estoque}</td>
                     <td>
-                        <f:formatNumber
+                      <f:formatNumber
                           value="${produto.preco}"
                           type="currency"
                           currencySymbol="R$"
                           pattern="R$ ####.####"
                           maxIntegerDigits="3"
                           maxFractionDigits="2"
-                        />
+                      />
                     </td>
+                    <td>${produto.estoque}</td>
                     <td>${produto.codigo}</td>
                     <td>${produto.descricao}</td>
                     <td>
                       <a
-                        href="${pageContext.request.contextPath}/crud_fornecedor?cmd=carregar&idTela=${produto.id}"
+                        href="${pageContext.request.contextPath}/crud_produto?cmd=carregar&idTela=${produto.id}"
                       >
                         <img
                           class="espaco_img"
@@ -124,7 +124,7 @@ this template use File | Settings | File Templates. --%>
                       </a>
 
                       <a
-                        href="${pageContext.request.contextPath}/crud_fornecedor?cmd=excluir&idTela=${produto.id}"
+                        href="${pageContext.request.contextPath}/crud_produto?cmd=excluir&idTela=${produto.id}"
                       >
                         <img
                           src="../imagem/lixeira.png"

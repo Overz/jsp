@@ -1,26 +1,26 @@
 package dao;
 
 import com.example.jsp.model.conn.GetConnection;
-import com.example.jsp.model.dao.DaoTelefone;
-import com.example.jsp.model.vo.VoTelefone;
-import com.example.jsp.util.RandomData;
+import com.example.jsp.model.dao.DaoLivro;
+import com.example.jsp.model.vo.VoLivro;
 import java.sql.Connection;
+import java.time.LocalDate;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestDaoTelefone extends Assert implements BaseTEST {
+public class TestDaoLivro extends Assert implements BaseTEST {
 
-	private VoTelefone t;
+	private VoLivro t;
 
 	@Test
 	@Before
 	@Override
 	public void testCadastrar() throws Exception {
 		System.out.println(getClass().getSimpleName() + " Cadastrar");
-		t = new VoTelefone(RandomData.generatePhone(5), "48", "TIM", "Joaozinho");
-		t = new DaoTelefone().cadastrar(t);
+		t = new VoLivro("Teste A", "Joaozinho", "Records", LocalDate.now().getYear(), null);
+		t = new DaoLivro().cadastrar(t);
 		assertNotNull(t);
 	}
 
@@ -28,30 +28,30 @@ public class TestDaoTelefone extends Assert implements BaseTEST {
 	@Override
 	public void testAlterar() throws Exception {
 		System.out.println(getClass().getSimpleName() + " Alterar");
-		t.setOperadora("VIVO");
-		assertTrue(new DaoTelefone().alterar(t));
-		assertNotEquals(t.getOperadora(), "TIM");
+		t.setDescricao("asdasdas");
+		assertTrue(new DaoLivro().alterar(t));
+		assertNotEquals(t.getDescricao(), null);
 	}
 
 	@Test
 	@Override
 	public void testConsultar() throws Exception {
 		System.out.println(getClass().getSimpleName() + " Consultar");
-		assertNotNull(new DaoTelefone().consultar("VIVO"));
+		assertNotNull(new DaoLivro().consultar("A"));
 	}
 
 	@Test
 	@Override
 	public void testConsultarPorID() throws Exception {
-		System.out.println(getClass().getSimpleName() + " ConsultarPorId");
-		assertNotNull(new DaoTelefone().consultarPorId(t.getId()));
+		System.out.println(getClass().getSimpleName() + " ConsultarPorID");
+		assertNotNull(new DaoLivro().consultarPorId(t.getId()));
 	}
 
 	@Test
 	@Override
 	public void testExcluir() throws Exception {
 		System.out.println(getClass().getSimpleName() + " Excluir");
-		assertTrue(new DaoTelefone().excluirPorID(t.getId()));
+		assertTrue(new DaoLivro().excluirPorID(t.getId()));
 	}
 
 	@Test
@@ -63,7 +63,7 @@ public class TestDaoTelefone extends Assert implements BaseTEST {
 		try {
 			conn = GetConnection.abrirConexao();
 			assert conn != null;
-			conn.prepareStatement("truncate telefone").execute();
+			conn.prepareStatement("truncate livro").execute();
 		} catch (Exception e) {
 			System.out.println(e.getClass().getSimpleName());
 			System.out.println(e.getMessage());

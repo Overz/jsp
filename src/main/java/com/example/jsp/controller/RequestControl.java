@@ -10,7 +10,7 @@ public abstract class RequestControl extends HttpServlet {
 
 	protected abstract void processRequest() throws ServletException, IOException;
 
-	protected abstract void carregarAlterar();
+	protected abstract void alterar();
 
 	protected abstract void excluir();
 

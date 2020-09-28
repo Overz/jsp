@@ -1,8 +1,6 @@
 package dao;
 
-import com.example.jsp.model.vo.VoFornecedor;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 

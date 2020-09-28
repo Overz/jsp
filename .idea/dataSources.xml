@@ -13,5 +13,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite::memory:</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="@localhost" uuid="eba8ba05-da15-4851-95f4-3f83e9b5e725">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/</jdbc-url>
+    </data-source>
   </component>
 </project>

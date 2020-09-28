@@ -1,6 +1,8 @@
 package com.example.jsp.controller;
 
+import com.example.jsp.model.dao.DaoLivro;
 import com.example.jsp.model.dao.DaoProduto;
+import com.example.jsp.model.vo.VoLivro;
 import com.example.jsp.model.vo.VoProduto;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -11,8 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ProdutoControl", urlPatterns = { "/crud_produto" })
-public class ProdutoControl extends RequestControl {
+@WebServlet(name = "LivroControl", urlPatterns = { "/crud_livro" })
+public class LivroControl extends RequestControl {
 
 	private HttpServletRequest req;
 	private HttpServletResponse res;
@@ -33,74 +35,73 @@ public class ProdutoControl extends RequestControl {
 	protected void alterar() {
 		Long id = Long.parseLong(req.getParameter("idTela"));
 		try {
-			VoProduto p = new DaoProduto().consultarPorId(id);
+			VoLivro p = new DaoLivro().consultarPorId(id);
 			req.setAttribute("produto", p);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println(e.getClass().getSimpleName());
 			req.setAttribute("msgErro", "erro ao pesquisar por id " + e.getMessage());
 		}
-		rd = req.getRequestDispatcher("logado/novoProduto.jsp");
+		rd = req.getRequestDispatcher("logado/novoLivro.jsp");
 	}
 
 	@Override
 	protected void salvar() {
-		VoProduto p = new VoProduto();
+		VoLivro l = new VoLivro();
 		String id = req.getParameter("id");
-		p.setNome(req.getParameter("nome"));
-		p.setPreco(req.getParameter("preco"));
-		p.setEstoque(req.getParameter("estoque"));
-		p.setDescricao(req.getParameter("descricao"));
+		l.setNome(req.getParameter("nome"));
+		l.setAutor(req.getParameter("autor"));
+		l.setEditora(req.getParameter("editora"));
+		l.setAnoEdicao(req.getParameter("anoEdicao"));
+		l.setDescricao(req.getParameter("descricao"));
 		try {
-			DaoProduto dao = new DaoProduto();
+			DaoLivro dao = new DaoLivro();
 			if (id != null && !id.isEmpty()) {
-				p.setId(id);
-				dao.alterar(p);
+				l.setId(id);
+				dao.alterar(l);
 				req.setAttribute("msgSucesso", "Alterado com Sucesso!");
 			} else {
-				List<VoProduto> list = dao.consultarTodos();
-				p.setCodigo(this.addCodigo(list));
-				dao.cadastrar(p);
+				dao.cadastrar(l);
 				req.setAttribute("msgSucesso", "Salvo com Sucesso!");
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println(e.getClass().getSimpleName());
-			req.setAttribute("msgErro", "Erro ao salvar!");
+			req.setAttribute("msgErro", "Erro ao excluir!");
 		}
-		rd = req.getRequestDispatcher("logado/novoProduto.jsp");
+		rd = req.getRequestDispatcher("logado/novoLivro.jsp");
 	}
 
 	@Override
 	public void excluir() {
 		Long id = Long.parseLong(req.getParameter("idTela"));
 		try {
-			new DaoProduto().excluirPorID(id);
+			new DaoLivro().excluirPorID(id);
 			req.setAttribute("msgSucesso", "Excluído com sucesso!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println(e.getClass().getSimpleName());
 			req.setAttribute("msgErro", "Erro ao excluir!");
 		}
-		rd = req.getRequestDispatcher("logado/produto.jsp");
+		rd = req.getRequestDispatcher("logado/livro.jsp");
 	}
 
 	@Override
 	protected void consultar() {
 		String nome = req.getParameter("nome");
 		try {
-			List<VoProduto> list = new DaoProduto().consultar(nome);
+			List<VoLivro> list = new DaoLivro().consultar(nome);
 			if (list == null || list.isEmpty()) {
 				req.setAttribute("msgAlerta", "Não foi encontrado nenhum registro com esse valor!");
-				req.setAttribute("produto", null);
+				req.setAttribute("livro", null);
 			}
-			req.setAttribute("produto", list);
+			req.setAttribute("livro", list);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println(e.getClass().getSimpleName());
 			req.setAttribute("msgErro", "Erro ao pesquisar " + e.getMessage());
 		}
-		rd = req.getRequestDispatcher("logado/produto.jsp");
+		rd = req.getRequestDispatcher("logado/livro.jsp");
 	}
 
 	@Override
@@ -117,12 +118,6 @@ public class ProdutoControl extends RequestControl {
 		this.req = request;
 		this.res = response;
 		this.processRequest();
-	}
-
-	private String addCodigo(List<VoProduto> list) {
-		String year = String.valueOf(LocalDateTime.now().getYear());
-		Long id = list.get(list.size() - 1).getId() + 1;
-		return id + year;
 	}
 
 }

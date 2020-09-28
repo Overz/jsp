@@ -25,13 +25,16 @@
       <div class="div_borda espaco_topo" id="menu">
         <ul>
           <li>
-            <a href="./index.jsp">HOME</a>
+            <a href="../logado/index.jsp">HOME</a>
           </li>
           <li>
-            <a href="./produto.jsp">PRODUTO</a>
+            <a href="../logado/produto.jsp">PRODUTO</a>
           </li>
           <li>
-            <a href="./fornecedor.jsp">Fornecedor</a>
+            <a href="../logado/fornecedor.jsp">FORNECEDOR</a>
+          </li>
+          <li>
+            <a href="../logado/livro.jsp">LIVRO</a>
           </li>
         </ul>
       </div>

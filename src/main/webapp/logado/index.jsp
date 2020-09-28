@@ -31,7 +31,10 @@
             <a href="./produto.jsp">PRODUTO</a>
           </li>
           <li>
-            <a href="./fornecedor.jsp">Fornecedor</a>
+            <a href="./fornecedor.jsp">FORNECEDOR</a>
+          </li>
+          <li>
+            <a href="./livro.jsp">LIVRO</a>
           </li>
         </ul>
       </div>

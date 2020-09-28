@@ -24,13 +24,13 @@ public class FornecedorControl extends RequestControl {
 			case "pesquisarPorNome" -> consultar();
 			case "salvar" -> salvar();
 			case "excluir" -> excluir();
-			case "carregar" -> carregarAlterar();
+			case "carregar" -> alterar();
 		}
 		rd.forward(req, res);
 	}
 
 	@Override
-	protected void carregarAlterar() {
+	protected void alterar() {
 		Long id = Long.parseLong(req.getParameter("idTela"));
 		try {
 			VoFornecedor f = new DaoFornecedor().consultarPorId(id);

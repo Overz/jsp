@@ -1,7 +1,7 @@
 <%-- Created by IntelliJ IDEA. User: cris Date: 26/09/2020 Time: 17:02 To change
-this template use File | Settings | File Templates. --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+this template use File | Settings | File Templates. --%> <%@ page
+contentType="text/html;charset=UTF-8" %> <%@taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -32,7 +32,10 @@ this template use File | Settings | File Templates. --%>
             <a href="./produto.jsp">PRODUTO</a>
           </li>
           <li>
-            <a href="./fornecedor.jsp">Fornecedor</a>
+            <a href="./fornecedor.jsp">FORNECEDOR</a>
+          </li>
+          <li>
+            <a href="./livro.jsp">LIVRO</a>
           </li>
         </ul>
       </div>
@@ -99,7 +102,9 @@ this template use File | Settings | File Templates. --%>
               id="email_textarea"
               name="descricao"
               style="resize: vertical"
-            >${produto.descricao}</textarea>
+            >
+${produto.descricao}</textarea
+            >
           </div>
           <div class="div_flex">
             <input class="botao botao_esquerda" value="Enviar" type="submit" />

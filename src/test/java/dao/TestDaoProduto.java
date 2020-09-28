@@ -17,8 +17,8 @@ public class TestDaoProduto extends Assert implements BaseTEST {
 	@Before()
 	@Override()
 	public void testCadastrar() throws Exception {
-		System.out.println("Cadastrar");
-		p = new VoProduto(RandomData.generateName(5), 20.0, 5, "100");
+		System.out.println(getClass().getSimpleName() + " Cadastrar");
+		p = new VoProduto("A", 20.0, 5, "100");
 		p = new DaoProduto().cadastrar(p);
 		assertNotNull(p);
 	}
@@ -26,7 +26,7 @@ public class TestDaoProduto extends Assert implements BaseTEST {
 	@Test()
 	@Override()
 	public void testAlterar() throws Exception {
-		System.out.println("Alterar");
+		System.out.println(getClass().getSimpleName() + " Alterar");
 		p.setDescricao("sdasdasdadsad");
 		assertTrue(new DaoProduto().alterar(p));
 		assertNotEquals(p.getDescricao(), null);
@@ -35,27 +35,28 @@ public class TestDaoProduto extends Assert implements BaseTEST {
 	@Test()
 	@Override()
 	public void testConsultar() throws Exception {
-		System.out.println("Consultar");
-		assertNotNull(new DaoProduto().consultar("A", "1"));
+		System.out.println(getClass().getSimpleName() + " Consultar");
+		assertNotNull(new DaoProduto().consultar("A"));
 	}
 
 	@Test()
 	@Override
 	public void testConsultarPorID() throws Exception {
-		System.out.println("Consultar por ID");
+		System.out.println(getClass().getSimpleName() + " Consultar por ID");
 		assertNotNull(new DaoProduto().consultarPorId(p.getId()));
 	}
 
 	@Test()
 	@Override()
 	public void testExcluir() throws Exception {
-		System.out.println("Excluir");
+		System.out.println(getClass().getSimpleName() + " Excluir");
 		assertTrue(new DaoProduto().excluirPorID(p.getId()));
 	}
 
 	@Test()
 	@Override
 	public void truncate() throws Exception {
+		System.out.println(getClass().getSimpleName() + " Truncate");
 		Connection conn = null;
 		try {
 			conn = GetConnection.abrirConexao();

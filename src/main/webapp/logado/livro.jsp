@@ -1,8 +1,7 @@
-<%-- Created by IntelliJ IDEA. User: cris Date: 26/09/2020 Time: 17:30 To change
-this template use File | Settings | File Templates. --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%-- Document : contato Created on : 24/08/2020, 10:45:16 Author : Admin --%>
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="utf-8" %>
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +24,6 @@ this template use File | Settings | File Templates. --%>
           alt="banner petshop..."
         />
       </div>
-
       <div class="div_borda espaco_topo" id="menu">
         <ul>
           <li>
@@ -40,22 +38,21 @@ this template use File | Settings | File Templates. --%>
           <li>
             <a href="./livro.jsp">LIVRO</a>
           </li>
+
         </ul>
       </div>
-
       <div id="menu_lateral" class="div_borda espaco_topo">
         <ul>
           <li>
-            <a href="../logado/produto.jsp">Pesquisa</a>
+            <a href="../logado/livro.jsp">Pesquisa</a>
           </li>
           <li>
-            <a href="../logado/novoProduto.jsp">Novo</a>
+            <a href="../logado/novoLivro.jsp">Novo</a>
           </li>
         </ul>
       </div>
-
       <div id="sistema" class="espaco_topo div_borda">
-        <h1>Produto</h1>
+        <h1>Livro</h1>
 
         <c:if test="${msgAlerta != null}">
           <p class="mensagemAlerta">${msgAlerta}</p>
@@ -72,7 +69,7 @@ this template use File | Settings | File Templates. --%>
         <form
           id="form_email"
           method="post"
-          action="${pageContext.request.contextPath}/crud_produto?cmd=pesquisarPorNome"
+          action="${pageContext.request.contextPath}/crud_livro?cmd=pesquisarPorNome"
         >
           <div class="div_flex">
             <label for="nome">Nome:</label>
@@ -85,38 +82,34 @@ this template use File | Settings | File Templates. --%>
           </div>
 
           <!--inicio tabela-->
-          <c:if test="${produto != null}">
+          <c:if test="${livro != null}">
             <table class="table_pesquisa">
               <thead>
                 <tr>
+                  <th>#</th>
                   <th>Nome</th>
-                  <th>Preco</th>
-                  <th>Estoque</th>
-                  <th>Codigo</th>
+                  <th>Autor</th>
+                  <th>Editora</th>
+                  <th>Ano Edicao</th>
                   <th>Descricao</th>
                   <th style="width: 110px">A��es</th>
                 </tr>
               </thead>
               <tbody>
-                <c:forEach items="${produto}" var="produto">
+                <c:forEach items="${livro}" var="livro">
+                  <script>
+                    console.log(response.body)
+                  </script>
                   <tr>
-                    <td>${produto.nome}</td>
-                    <td>
-                      <f:formatNumber
-                          value="${produto.preco}"
-                          type="currency"
-                          currencySymbol="R$"
-                          pattern="R$ ####.####"
-                          maxIntegerDigits="3"
-                          maxFractionDigits="2"
-                      />
-                    </td>
-                    <td>${produto.estoque}</td>
-                    <td>${produto.codigo}</td>
-                    <td>${produto.descricao}</td>
+                    <td>${livro.id}</td>
+                    <td>${livro.nome}</td>
+                    <td>${livro.autor}</td>
+                    <td>${livro.editora}</td>
+                    <td>${livro.anoEdicao}</td>
+                    <td>${livro.descricao}</td>
                     <td>
                       <a
-                        href="${pageContext.request.contextPath}/crud_produto?cmd=carregar&idTela=${produto.id}"
+                        href="${pageContext.request.contextPath}/crud_livro?cmd=carregar&idTela=${livro.id}"
                       >
                         <img
                           class="espaco_img"
@@ -127,7 +120,7 @@ this template use File | Settings | File Templates. --%>
                       </a>
 
                       <a
-                        href="${pageContext.request.contextPath}/crud_produto?cmd=excluir&idTela=${produto.id}"
+                        href="${pageContext.request.contextPath}/crud_livro?cmd=excluir&idTela=${livro.id}"
                       >
                         <img
                           src="../imagem/lixeira.png"

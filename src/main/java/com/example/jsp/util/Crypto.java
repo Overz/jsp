@@ -66,9 +66,9 @@ public class Crypto {
 
 	public static String cipher(String message) {
 		try {
-			String encryptionKeyString = "thisisa128bitkey";
+			String key = "ChaveSecretaParaCriptografia&Descriptografia";
 			String originalMessage = "This is a secret message";
-			byte[] encryptionKeyBytes = encryptionKeyString.getBytes();
+			byte[] encryptionKeyBytes = key.getBytes();
 
 			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
 			SecretKey secretKey = new SecretKeySpec(encryptionKeyBytes, "AES");
@@ -79,7 +79,7 @@ public class Crypto {
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
 
 			byte[] decryptedMessageBytes = cipher.doFinal(encryptedMessageBytes);
-//			assertThat(originalMessage).isEqualTo(new String(decryptedMessageBytes));
+//			assertThat(originalMeswsage).isEqualTo(new String(decryptedMessageBytes));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "TesteControl", urlPatterns = { "/crud_produto" })
-public class Teste extends RequestControl {
+@WebServlet(name = "ProdutoControl", urlPatterns = { "/crud_produto" })
+public class ProdutoControl extends RequestControl {
 
 	private HttpServletRequest req;
 	private HttpServletResponse res;

@@ -1,9 +1,10 @@
 package com.example.jsp.error;
 
+import javax.servlet.jsp.ErrorData;
 
-public abstract class AppError extends Exception {
+public class RequiredFieldError extends AppError {
 
-	public AppError(String message) {
+	public RequiredFieldError(String message) {
 		super(message);
 		System.out.println(getClass().getSimpleName() + " Message: " + message);
 	}
